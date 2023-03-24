@@ -1,8 +1,7 @@
-"use client";
 import { useUser, useSupabaseClient } from "@supabase/auth-helpers-react";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
-export default function Car() {
+export default function VehicleCard() {
     const supabaseClient = useSupabaseClient();
     const user = useUser();
     const router = useRouter();
@@ -17,6 +16,7 @@ export default function Car() {
             const { data, error } = await supabaseClient
                 .from("vehicles")
                 .select("*")
+                .eq("owner", 2)
                 .limit(10);
             console.log(data);
             if (data != null) {
@@ -37,8 +37,8 @@ export default function Car() {
                         <p>License Plate: {vehicle.license}</p>
                         <p>Vin Number: {vehicle.vin}</p>
                         <p>Owner ID: {vehicle.owner}</p>
-                        <p>Battery Health: {vehicle.battery_health}/100</p>
                         <p>Error Codes: {vehicle.error_codes}</p>
+                        <p>Last Updated: {vehicle.last_updated}</p>
                     </div>
                 ))}
             </div>
