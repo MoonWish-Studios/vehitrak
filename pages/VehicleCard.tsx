@@ -1,7 +1,9 @@
 import { useUser, useSupabaseClient } from "@supabase/auth-helpers-react";
+import { UUID } from "crypto";
 import { useRouter } from "next/navigation";
+import { stringify } from "querystring";
 import { useState, useEffect } from "react";
-export default function VehicleCard() {
+export default function VehicleCard({ userid }: { userid: string }) {
     const supabaseClient = useSupabaseClient();
     const user = useUser();
     const router = useRouter();
@@ -11,14 +13,16 @@ export default function VehicleCard() {
     useEffect(() => {
         getVehicleData();
     }, []);
+
     const getVehicleData = async () => {
         try {
             const { data, error } = await supabaseClient
                 .from("vehicles")
                 .select("*")
-                .eq("owner", 2)
+                .eq("owner_id", userid)
                 .limit(10);
-            console.log(data);
+            console.log(data, error);
+
             if (data != null) {
                 setVehicles(data);
             }
@@ -30,7 +34,7 @@ export default function VehicleCard() {
         <div className="flex flex-col">
             <div>
                 {vehicles.map((vehicle: any) => (
-                    <div>
+                    <div key={vehicle.id} className="mb-10">
                         <h1>
                             Make: {vehicle.make} {vehicle.model} {vehicle.year}
                         </h1>
