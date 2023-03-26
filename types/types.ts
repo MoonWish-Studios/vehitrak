@@ -19,6 +19,7 @@ export interface InputTypes {
     label: string;
     placeholder?: string;
     className?: string;
+    initialValue?: string;
     type: string;
     name: string;
     statusCompleted: boolean;
@@ -46,5 +47,8 @@ export interface VehicleDataTypes {
     make: string;
     model: string;
     year: number;
+    license: string;
     vin: string;
+    mileage_last_serviced: number;
+    date_last_serviced: Date;
 }

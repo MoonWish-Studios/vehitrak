@@ -3,6 +3,7 @@ import {} from "querystring";
 import { useRouter, NextRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { UUID } from "crypto";
+import Link from "next/link";
 
 const numberReg = /^\d+$/;
 export default function Users() {
@@ -20,8 +21,9 @@ export default function Users() {
             {id && (
                 <>
                     <div className="pb-10">{id}</div>
-                    <button className="btn">Add Car</button>
-
+                    <Link href={"/add-vehicle/" + id} className="btn">
+                        Add Car
+                    </Link>
                     <VehicleCard userid={id}></VehicleCard>
                 </>
             )}

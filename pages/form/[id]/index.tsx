@@ -228,6 +228,7 @@ export function InputBox({
     className,
     type,
     name,
+    initialValue,
     handleChange,
     statusCompleted,
 }: InputTypes) {
@@ -243,6 +244,7 @@ export function InputBox({
                 type={type}
                 name={name}
                 placeholder={placeholder}
+                value={initialValue}
                 onChange={handleChange}
                 required={true}
             />
