@@ -1,4 +1,4 @@
-import VehicleCard from "../../VehicleCard";
+import VehicleCard from "../../../components/VehicleCard";
 import {} from "querystring";
 import { useRouter, NextRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -16,10 +16,12 @@ export default function Users() {
     });
 
     return (
-        <div>
+        <div className="w-full mx-5">
             {id && (
                 <>
                     <div className="pb-10">{id}</div>
+                    <button className="btn">Add Car</button>
+
                     <VehicleCard userid={id}></VehicleCard>
                 </>
             )}

@@ -1,7 +1,7 @@
 import { useUser, useSupabaseClient } from "@supabase/auth-helpers-react";
-import { UUID } from "crypto";
 import { useRouter } from "next/navigation";
 import { stringify } from "querystring";
+import Link from "next/link";
 import { useState, useEffect } from "react";
 export default function VehicleCard({ userid }: { userid: string }) {
     const supabaseClient = useSupabaseClient();
@@ -43,6 +43,11 @@ export default function VehicleCard({ userid }: { userid: string }) {
                         <p>Owner ID: {vehicle.owner}</p>
                         <p>Error Codes: {vehicle.error_codes}</p>
                         <p>Last Updated: {vehicle.last_updated}</p>
+                        <Link
+                            href={`/dashboard/${vehicle.owner}/${vehicle.id}`}
+                        >
+                            Open Car
+                        </Link>
                     </div>
                 ))}
             </div>
