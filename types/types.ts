@@ -1,5 +1,6 @@
 export interface FormTypes {
     license: string;
+    id?: string;
     inspector: string;
     location: string;
     odometer: number;
@@ -53,4 +54,5 @@ export interface VehicleDataTypes {
     vin: string;
     mileage_last_serviced: number;
     date_last_serviced: Date;
+    has_issue?: boolean;
 }

@@ -64,7 +64,7 @@ const EditVehicle: NextPage = () => {
                 .update(vehicleData)
                 .eq("license", license);
             if (!error) {
-                router.push("/dashboard/");
+                router.push("/dashboard/vehicle/" + license);
             } else {
             }
         } catch (error: any) {
@@ -73,7 +73,7 @@ const EditVehicle: NextPage = () => {
     };
     return (
         <div className="w-full flex items-center justify-center">
-            <div className="w-1/2">
+            <div className="flex flex-col items-center justify-center">
                 <InputBox
                     label="Make"
                     name="make"
@@ -119,6 +119,7 @@ const EditVehicle: NextPage = () => {
                     statusCompleted={vehicleData.vin ? true : false}
                     handleChange={handleChange}
                 />
+
                 <InputBox
                     label="Mileage Last Serviced At"
                     name="mileage_last_serviced"
@@ -141,7 +142,9 @@ const EditVehicle: NextPage = () => {
                     }
                     handleChange={handleChange}
                 />
-                <button onClick={saveChanges}>Save Changed</button>
+                <button className="btn mt-5 w-full" onClick={saveChanges}>
+                    Save Changes
+                </button>
             </div>
         </div>
     );

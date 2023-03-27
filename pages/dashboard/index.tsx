@@ -3,6 +3,7 @@ import { useUser, useSupabaseClient } from "@supabase/auth-helpers-react";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { GetServerSidePropsContext } from "next";
+import Image from "next/image";
 import {
     createServerSupabaseClient,
     User,
@@ -15,12 +16,28 @@ export default function Users() {
     const supabaseClient = useSupabaseClient();
     const user = useUser();
 
+    const shareData = {
+        title: "MDN",
+        text: "Learn web development on MDN!",
+        url: "https://developer.mozilla.org",
+    };
     return (
-        <div className="w-full mx-5">
+        <div className="w-full px-3 flex flex-col items-center justify-center ">
             {/* <div className="pb-10">{user!.id}</div> */}
-            <Link href={"/add-vehicle/"} className="btn">
-                Add Car
-            </Link>
+            <div className="flex flex-row">
+                <Link href={"/add-vehicle/"} className=" btn btn-ghost">
+                    Add Car
+                </Link>
+                {user?.id !== undefined && (
+                    <Link
+                        target="_blank"
+                        href={"/form/" + user?.id}
+                        className="btn btn-ghost"
+                    >
+                        Open Form
+                    </Link>
+                )}
+            </div>
 
             {user?.id !== undefined && supabaseClient && (
                 <VehicleCard
@@ -51,20 +68,50 @@ export function VehicleCard({
         })();
     }, []);
     return (
-        <div className="flex flex-col">
-            <div>
+        <div className="flex flex-col w-fit justify-center items-center mx-auto">
+            <div className="flex flex-wrap justify-center  gap-5 ">
                 {vehicles.length > 0 &&
                     vehicles.map((vehicle: VehicleDataTypes) => (
-                        <div key={vehicle.id} className="mb-10">
-                            <pre>{JSON.stringify(userId, null, 2)}</pre>
-                            <pre>{JSON.stringify(vehicle, null, 2)}</pre>
-                            <Link
-                                href={`/dashboard/vehicle/${vehicle.license}`}
-                                className="btn btn-secondary"
+                        <Link href={"/dashboard/vehicle/" + vehicle.license}>
+                            <div
+                                // href={"/dashboard/vehicle/" + vehicle.license}
+                                className="max-w-sm rounded overflow-hidden shadow-lg "
                             >
-                                Open Car
-                            </Link>
-                        </div>
+                                <Image
+                                    className="w-full p-7"
+                                    src={"/mercedes.webp"}
+                                    width={900}
+                                    height={900}
+                                    alt="Sunset in the mountains"
+                                />
+                                <div className="px-6 py-4">
+                                    <div className="flex flex-row gap-2 justify-start items-center">
+                                        <div className="font-bold text-xl">
+                                            {vehicle.year} {vehicle.make}{" "}
+                                            {vehicle.model}
+                                        </div>
+                                        {vehicle.has_issue ? (
+                                            <Image
+                                                src={"/red-circle.svg"}
+                                                alt={"Red"}
+                                                className="animate-bounce"
+                                                height={12}
+                                                width={12}
+                                            />
+                                        ) : (
+                                            <Image
+                                                src={"/green-circle.svg"}
+                                                alt={"green"}
+                                                className="animate"
+                                                height={12}
+                                                width={12}
+                                            />
+                                        )}
+                                    </div>
+                                    <p>{vehicle.license}</p>
+                                </div>
+                            </div>
+                        </Link>
                     ))}
             </div>
         </div>
@@ -74,7 +121,7 @@ export function VehicleCard({
 function CarCard({ make, model, year, license }: VehicleDataTypes) {
     return (
         <div className="card w-96">
-            <div className="card-body">
+            <div className="card-body ">
                 <h2 className="card-title">Life hack</h2>
                 <p>How to park your car at your garage?</p>
                 <div className="card-actions justify-end">

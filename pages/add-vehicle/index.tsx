@@ -110,10 +110,12 @@ const AddVehicle: NextPage = () => {
 
                 <InputBox
                     label="Date Last Serviced"
-                    name="vin"
+                    name="date_last_serviced"
                     placeholder="2022"
                     type="date"
-                    statusCompleted={vehicleData.vin ? true : false}
+                    statusCompleted={
+                        vehicleData.date_last_serviced ? true : false
+                    }
                     handleChange={handleChange}
                 />
 

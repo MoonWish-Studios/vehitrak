@@ -74,7 +74,7 @@ export default function Form() {
     };
 
     return (
-        <div className="mx-10 my-10">
+        <div className="mx-10 my-10 flex gap-2 justify-center items-center">
             <form onSubmit={createLog} className="form-control">
                 <SelectBox
                     placeholder="Choose License"
@@ -193,7 +193,7 @@ export default function Form() {
                     type="text"
                     handleChange={handleChange}
                 />
-                <button type="submit" className="btn btn-primary">
+                <button type="submit" className="btn btn-primary mt-4">
                     Insert
                 </button>
             </form>
