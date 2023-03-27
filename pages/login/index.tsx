@@ -3,11 +3,11 @@ import { useUser, useSupabaseClient } from "@supabase/auth-helpers-react";
 import { useRouter } from "next/router";
 import { Auth } from "@supabase/auth-ui-react";
 import { ThemeSupa } from "@supabase/auth-ui-shared";
-import { InputBox } from "../form/[id]";
+import { InputBox } from "@/components/InputTypes";
 import Link from "next/link";
 import { UserDataTypes } from "@/types/types";
 import { useState, useEffect } from "react";
-
+import MANAGER from "@/hooks/useVehicle";
 const Login: NextPage = () => {
     const supabaseClient = useSupabaseClient();
     const user = useUser();
@@ -16,27 +16,17 @@ const Login: NextPage = () => {
     const [userData, setUserData] = useState<any>(null);
 
     const getVehicleData = async () => {
-        console.log(user?.id);
-        try {
-            const { data, error } = await supabaseClient
-                .from("users")
-                .select("*")
-                .eq("id", user?.id);
-
-            console.log("getting user data and setting it");
-
+        (async () => {
+            const data = await MANAGER.fetchUser(supabaseClient, user!.id);
             if (user !== null && data !== null) {
-                setUserData(data as any as null);
+                setUserData(data);
             }
-        } catch (error: any) {
-            alert(error.message);
-        }
+        })();
     };
 
     useEffect(() => {
         if (user) {
             if (userData === null) {
-                console.log("AM I CALLED");
                 getVehicleData();
             }
         }
@@ -45,8 +35,7 @@ const Login: NextPage = () => {
     useEffect(() => {
         if (!user) return;
         if (userData && userData.length !== 0) {
-            console.log("hihi", userData);
-            router.push("/dashboard/" + user?.id);
+            router.push("/dashboard");
         } else {
             router.push("/onboard/" + user?.id);
         }
@@ -62,7 +51,19 @@ const Login: NextPage = () => {
                                 background: "#0c0c0c",
                                 color: "white",
                                 border: "none",
-                                fontFamily: "Outfit",
+                                fontFamily: "Poppins",
+                            },
+                            label: {
+                                fontFamily: "Poppins",
+                            },
+                            input: {
+                                fontFamily: "Poppins",
+                            },
+                            message: {
+                                fontFamily: "Poppins",
+                            },
+                            anchor: {
+                                fontFamily: "Poppins",
                             },
                             //..
                         },

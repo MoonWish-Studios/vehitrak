@@ -3,6 +3,8 @@ import React, { useEffect, useState, useRef } from "react";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { nanoid } from "nanoid";
 import { FormTypes, SelectTypes, InputTypes } from "@/types/types";
+import { InputBox, SelectBox } from "@/components/InputTypes";
+import MANAGER from "@/hooks/useVehicle";
 
 export default function Form() {
     const supabaseClient = useSupabaseClient();
@@ -37,20 +39,18 @@ export default function Form() {
         }
     };
 
-    const handleInput = () => {
-        // if "working" or "yes", return true, else false
-        // If license on input change, save as attribute to object
-    };
-
     useEffect(() => {
+        if (!ownerId) return;
+        (async () => {
+            const data = await MANAGER.fetchLicensesByUserId(
+                supabaseClient,
+                ownerId
+            );
+            setLicenses(data);
+        })();
         if (ownerId) {
-            getLicenses();
         }
     }, [ownerId]);
-
-    useEffect(() => {
-        console.log(formData);
-    });
 
     useEffect(() => {
         if (router.isReady) {
@@ -59,32 +59,13 @@ export default function Form() {
         }
     });
 
-    const getLicenses = async () => {
-        try {
-            const { data, error } = await supabaseClient
-                .from("vehicles")
-                .select("*")
-                .eq("owner_id", ownerId)
-                .select("license");
-            console.log(data, error);
-
-            if (data != null) {
-                const licenses = data.map(
-                    ({ license }: { license: string }) => license
-                );
-                setLicenses(licenses);
-            }
-        } catch (error: any) {
-            alert("error ");
-        }
-    };
-
     const createLog = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
             const { data, error } = await supabaseClient
                 .from("logs")
                 .insert(formData);
+            console.log(error);
             if (error) throw error;
             router.push("/");
         } catch (error: any) {
@@ -174,8 +155,8 @@ export default function Form() {
                     options={["Yes", "No"]}
                     handleChange={handleChange}
                     statusCompleted={formData.tire_pressure !== null}
-                    label="Wiper Blades"
-                    name="wiper_blades"
+                    label="Tire Pressire In Good Condition"
+                    name="tire_pressure"
                 />
 
                 <SelectBox
@@ -212,101 +193,13 @@ export default function Form() {
                     type="text"
                     handleChange={handleChange}
                 />
-                <button type="submit">Insert</button>
+                <button type="submit" className="btn btn-primary">
+                    Insert
+                </button>
             </form>
         </div>
     );
 }
-
-/**
- * @todo add functionality to className
- */
-
-export function InputBox({
-    label,
-    placeholder = "",
-    className,
-    type,
-    name,
-    initialValue,
-    handleChange,
-    statusCompleted,
-}: InputTypes) {
-    return (
-        <div className="form-control w-full max-w-xs ">
-            <label className="label">
-                <span className="label-text">{label}</span>
-            </label>
-            <input
-                className={`
-                input w-full max-w-xs
-                ${statusCompleted ? "input-success" : "input-warning"}  `}
-                type={type}
-                name={name}
-                placeholder={placeholder}
-                value={initialValue}
-                onChange={handleChange}
-                required={true}
-            />
-        </div>
-    );
-}
-
-export function SelectBox({
-    label,
-    name,
-    placeholder,
-    handleChange,
-    options,
-    statusCompleted,
-}: SelectTypes) {
-    return (
-        <div className="form-control w-full max-w-xs">
-            <label className="label">
-                <span className="label-text">{label}</span>
-            </label>
-            <select
-                name={name}
-                defaultValue=""
-                required
-                onInput={handleChange}
-                className={`select ${
-                    statusCompleted ? "select-success" : "select-warning"
-                }`}
-            >
-                <option disabled value="">
-                    Choose One
-                </option>
-
-                {options.map((op, index) => (
-                    <option key={index} value={op}>
-                        {op}
-                    </option>
-                ))}
-            </select>
-        </div>
-    );
-}
-
-const dataEntry = [
-    {
-        license: "9DZJ478",
-        inspector: "ASLFKAJSFLK",
-        location: "ASLFKAJSFLK",
-        odometer: 0,
-        head_lights: true,
-        tail_lights: true,
-        signal_lights: true,
-        warning_lights: true,
-        wiper_blades: true,
-        tire_pressure: [true, true, false, true],
-        clean_interior: true,
-        clean_exterior: true,
-        clean_rear: true,
-        description: "The car looking good",
-    },
-];
-
 const INITIAL_STATE = {
     license: "",
     inspector: "",

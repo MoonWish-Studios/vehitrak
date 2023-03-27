@@ -3,7 +3,7 @@ import { useUser, useSupabaseClient } from "@supabase/auth-helpers-react";
 import { useRouter } from "next/router";
 import { Auth } from "@supabase/auth-ui-react";
 import { supabase, ThemeSupa } from "@supabase/auth-ui-shared";
-import { InputBox } from "../../form/[id]";
+import { InputBox } from "@/components/InputTypes";
 import { useState, useEffect } from "react";
 import { UserDataTypes } from "@/types/types";
 

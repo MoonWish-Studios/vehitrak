@@ -3,13 +3,14 @@ import { useUser, useSupabaseClient } from "@supabase/auth-helpers-react";
 import { useRouter } from "next/router";
 import { Auth } from "@supabase/auth-ui-react";
 import { supabase, ThemeSupa } from "@supabase/auth-ui-shared";
-import { InputBox } from "../../form/[id]";
+import { InputBox } from "@/components/InputTypes";
 import { useState, useEffect } from "react";
 import { VehicleDataTypes } from "@/types/types";
 import {
     createServerSupabaseClient,
     User,
 } from "@supabase/auth-helpers-nextjs";
+import Link from "next/link";
 
 const VEHICLE_DATA_INITIAL_STATE = {
     owner_id: "",
@@ -26,21 +27,10 @@ const AddVehicle: NextPage = () => {
     const user = useUser();
     const router = useRouter();
 
-    const [id, setId] = useState<string | null>(null);
-    useEffect(() => {
-        if (router.isReady) {
-            const id = router.query.id as string;
-            if (id !== null)
-                setVehicleData((prev) => ({
-                    ...prev,
-                    owner_id: id,
-                }));
-        }
-    }, [router]);
-
-    const [vehicleData, setVehicleData] = useState<VehicleDataTypes>(
-        VEHICLE_DATA_INITIAL_STATE
-    );
+    const [vehicleData, setVehicleData] = useState<VehicleDataTypes>({
+        ...VEHICLE_DATA_INITIAL_STATE,
+        owner_id: user!.id,
+    });
 
     const handleChange = (e: any) => {
         setVehicleData((prevState) => ({
@@ -55,7 +45,7 @@ const AddVehicle: NextPage = () => {
                 .from("vehicles")
                 .insert(vehicleData);
             if (!error) {
-                router.push("/dashboard/" + user?.id);
+                router.push("/dashboard/");
             } else {
                 console.log(error);
             }
@@ -66,7 +56,7 @@ const AddVehicle: NextPage = () => {
 
     return (
         <div className="w-full flex items-center justify-center">
-            <div className="w-1/2">
+            <div className="flex flex-col items-center justify-center">
                 <InputBox
                     label="Make"
                     name="make"
@@ -117,6 +107,7 @@ const AddVehicle: NextPage = () => {
                     }
                     handleChange={handleChange}
                 />
+
                 <InputBox
                     label="Date Last Serviced"
                     name="vin"
@@ -125,7 +116,10 @@ const AddVehicle: NextPage = () => {
                     statusCompleted={vehicleData.vin ? true : false}
                     handleChange={handleChange}
                 />
-                <button onClick={addVehicle}>Add Vehicle</button>
+
+                <button className="btn mt-5 w-full" onClick={addVehicle}>
+                    Add Vehicle
+                </button>
             </div>
         </div>
     );

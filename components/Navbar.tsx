@@ -12,50 +12,72 @@ export default function Navbar() {
         router.push("/");
     }
     return (
-        <div>
-            <div className="navbar bg-base-100">
-                <div className="flex-1">
-                    <a className="btn btn-ghost normal-case text-xl">daisyUI</a>
-                </div>
-                <div className="flex-none">
-                    <ul className="menu menu-horizontal px-1">
-                        <li>
-                            <a>Item 1</a>
-                        </li>
-                        <li tabIndex={0}>
-                            <a>
-                                Parent
-                                <svg
-                                    className="fill-current"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    width="20"
-                                    height="20"
-                                    viewBox="0 0 24 24"
-                                >
-                                    <path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" />
-                                </svg>
-                            </a>
-                            <ul className="p-2 bg-base-100">
-                                <li>
-                                    <a>Submenu 1</a>
-                                </li>
-                                <li>
-                                    <a>Submenu 2</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            {!user ? (
-                                <Link href={"/login"}>Login</Link>
-                            ) : (
-                                <button onClick={() => signOutUser()}>
-                                    Sign Out
-                                </button>
-                            )}
-                        </li>
-                    </ul>
+        <div className="sticky top-5 z-[999] flex items-center justify-center  w-full">
+            <div
+                className="bg-zinc-200 bg-opacity-30 backdrop-filter backdrop-blur-md mb-10 
+            flex flex-row items-center justify-between px-8 mx-48 py-3 rounded-lg gap-[1.1rem] md:gap-[30rem] lg:gap-[39rem] "
+            >
+                <div className="text-2xl">Vehitrack</div>
+                <div className="flex items-center justify-center">
+                    <div className="dropdown rounded-full">
+                        <label tabIndex={0} className="hover:cursor-pointer">
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="h-8 w-8"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                            >
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth="2"
+                                    d="M4 6h16M4 12h8m-8 6h16"
+                                />
+                            </svg>
+                        </label>
+                        <ul
+                            tabIndex={0}
+                            className="backdrop-filter backdrop-blur-lg menu menu-compact dropdown-content mt-3 p-2 -translate-x-32 translate-y-3 shadow bg-zinc-200 bg-opacity-30 rounded-box w-48"
+                        >
+                            <li>
+                                <Link href={"/dashboard"} className="text-lg">
+                                    Dashboard
+                                </Link>
+                            </li>
+
+                            <li>
+                                {!user ? (
+                                    <Link className="text-lg" href={"/login"}>
+                                        Login
+                                    </Link>
+                                ) : (
+                                    <button
+                                        className="text-lg"
+                                        onClick={() => signOutUser()}
+                                    >
+                                        Sign Out
+                                    </button>
+                                )}
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
     );
+}
+
+{
+    /* <div className="flex-none">
+    <ul className="btn-ghost p-3 rounded-sm flex items-center justify-center">
+        <li>
+            {!user ? (
+                <Link href={"/login"}>Login</Link>
+            ) : (
+                <button onClick={() => signOutUser()}>Sign Out</button>
+            )}
+        </li>
+    </ul>
+</div>; */
 }

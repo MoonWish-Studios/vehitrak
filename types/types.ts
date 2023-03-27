@@ -10,6 +10,7 @@ export interface FormTypes {
     wiper_blades: boolean | null;
     tire_pressure: boolean | null;
     clean_interior: boolean | null;
+    time_created?: Date;
     clean_exterior: boolean | null;
     clean_rear: boolean | null;
     description: string;
@@ -48,6 +49,7 @@ export interface VehicleDataTypes {
     model: string;
     year: number;
     license: string;
+    id?: string;
     vin: string;
     mileage_last_serviced: number;
     date_last_serviced: Date;

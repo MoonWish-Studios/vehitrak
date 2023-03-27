@@ -18,12 +18,10 @@ class MyDocument extends Document {
 
     render() {
         return (
-            <Html data-theme="lofi" lang="en">
+            <Html className="" data-theme="lofi" lang="en">
                 <Head></Head>
-                <body>
-                    <Main />
-                    <NextScript />
-                </body>
+                <Main />
+                <NextScript />
             </Html>
         );
     }

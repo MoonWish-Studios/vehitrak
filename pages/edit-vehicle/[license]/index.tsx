@@ -3,14 +3,14 @@ import { useUser, useSupabaseClient } from "@supabase/auth-helpers-react";
 import { useRouter } from "next/router";
 import { Auth } from "@supabase/auth-ui-react";
 import { supabase, ThemeSupa } from "@supabase/auth-ui-shared";
-import { InputBox } from "../../form/[id]";
+import { InputBox } from "@/components/InputTypes";
 import { useState, useEffect } from "react";
 import { VehicleDataTypes } from "@/types/types";
 import {
     createServerSupabaseClient,
     User,
 } from "@supabase/auth-helpers-nextjs";
-
+import MANAGER from "@/hooks/useVehicle";
 const VEHICLE_DATA_INITIAL_STATE = {
     owner_id: "",
     make: "",
@@ -30,7 +30,6 @@ const EditVehicle: NextPage = () => {
     useEffect(() => {
         if (router.isReady) {
             const license = router.query.license as string;
-            console.log(license);
             setLicense(license);
         }
     }, [router]);
@@ -40,23 +39,14 @@ const EditVehicle: NextPage = () => {
     );
 
     useEffect(() => {
-        async function getVehicleData() {
-            const { data, error } = await supabaseClient
-                .from("vehicles")
-                .select("*")
-                .filter("license", "eq", license)
-                .single();
-            if (error) {
-                console.log(error);
-            } else {
-                console.log(data);
-                setVehicleData(data as any);
-            }
-        }
-
-        if (license) {
-            getVehicleData();
-        }
+        if (!license) return;
+        (async () => {
+            const data = await MANAGER.fetchVehicleByLicense(
+                supabaseClient,
+                license
+            );
+            setVehicleData(data);
+        })();
     }, [license]);
 
     // useEffect(() => {}, [data]);
@@ -74,7 +64,7 @@ const EditVehicle: NextPage = () => {
                 .update(vehicleData)
                 .eq("license", license);
             if (!error) {
-                router.push("/dashboard/" + user?.id);
+                router.push("/dashboard/");
             } else {
             }
         } catch (error: any) {
