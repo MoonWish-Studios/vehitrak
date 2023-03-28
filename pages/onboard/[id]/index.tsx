@@ -49,7 +49,7 @@ const Onboard: NextPage = () => {
                 .from("users")
                 .insert(userData);
             if (!error) {
-                router.push("/dashboard/" + user?.id);
+                router.push("/dashboard");
             } else {
                 console.log(error);
             }
@@ -60,7 +60,7 @@ const Onboard: NextPage = () => {
 
     return (
         <div className="w-full flex items-center justify-center">
-            <div className="w-1/2">
+            <div className="">
                 <InputBox
                     label="First Name"
                     name="first_name"
@@ -85,7 +85,9 @@ const Onboard: NextPage = () => {
                     statusCompleted={userData.business_name ? true : false}
                     handleChange={handleChange}
                 />
-                <button onClick={createUser}>Save</button>
+                <button className="btn mt-4 btn-primary" onClick={createUser}>
+                    Save
+                </button>
             </div>
         </div>
     );

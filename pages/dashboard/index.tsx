@@ -72,7 +72,10 @@ export function VehicleCard({
             <div className="flex flex-wrap justify-center  gap-5 ">
                 {vehicles.length > 0 &&
                     vehicles.map((vehicle: VehicleDataTypes) => (
-                        <Link href={"/dashboard/vehicle/" + vehicle.license}>
+                        <Link
+                            key={vehicle.license}
+                            href={"/dashboard/vehicle/" + vehicle.license}
+                        >
                             <div
                                 // href={"/dashboard/vehicle/" + vehicle.license}
                                 className="max-w-sm rounded overflow-hidden shadow-lg "

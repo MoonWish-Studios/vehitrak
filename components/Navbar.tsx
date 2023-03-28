@@ -21,7 +21,9 @@ export default function Navbar() {
                 className="bg-zinc-200 bg-opacity-30 backdrop-filter backdrop-blur-md mb-10 
             flex flex-row items-center justify-between px-8 mx-48 py-3 rounded-lg gap-[1.1rem] md:gap-[18rem] lg:gap-[32rem] "
             >
-                <div className="text-2xl">Vehitrack</div>
+                <Link href={"/"} className="text-2xl">
+                    Vehitrack
+                </Link>
                 <div className="flex items-center justify-center">
                     <div
                         onClick={() => setOpen(!open)}

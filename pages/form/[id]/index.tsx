@@ -67,7 +67,7 @@ export default function Form() {
                 .insert(formData);
             console.log(error);
             if (error) throw error;
-            router.push("/");
+            router.push("/dashboard");
         } catch (error: any) {
             alert("hi error!");
         }
@@ -155,7 +155,7 @@ export default function Form() {
                     options={["Yes", "No"]}
                     handleChange={handleChange}
                     statusCompleted={formData.tire_pressure !== null}
-                    label="Tire Pressire In Good Condition"
+                    label="Tire Pressure In Good Condition"
                     name="tire_pressure"
                 />
 

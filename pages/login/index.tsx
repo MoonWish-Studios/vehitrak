@@ -34,6 +34,7 @@ const Login: NextPage = () => {
 
     useEffect(() => {
         if (!user) return;
+        if (userData === null) return;
         if (userData && userData.length !== 0) {
             router.push("/dashboard");
         } else {

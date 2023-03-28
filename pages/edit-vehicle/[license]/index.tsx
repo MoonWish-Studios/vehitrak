@@ -72,7 +72,7 @@ const EditVehicle: NextPage = () => {
         }
     };
     return (
-        <div className="w-full flex items-center justify-center">
+        <div className="w-full flex items-center justify-center mb-5">
             <div className="flex flex-col items-center justify-center">
                 <InputBox
                     label="Make"

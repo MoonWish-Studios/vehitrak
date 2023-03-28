@@ -130,7 +130,7 @@ export default function VehicleDetails() {
     };
 
     return (
-        <div>
+        <div className="mb-8">
             <div className=" w-full mb-56 mt-10">
                 <div className="topSection w-full flex flex-col items-center">
                     <Image
@@ -265,7 +265,7 @@ function LatestLogSection({
     }, [logs]);
 
     return (
-        <div className="flex flex-col justify-center items-center  gap-2 px-8">
+        <div className="flex flex-col  justify-center items-center  gap-2 px-2 md:px-8">
             <div className="flex gap-2 justify-center w-full box-border flex-wrap ">
                 {/* Miles since last inspection */}
                 <Stat
@@ -345,14 +345,6 @@ function LatestLogSection({
                     }
                     value={logs[0].wiper_blades ? "Good" : "Needs Check"}
                 ></Stat>
-                {/* Wiper Blades */}
-                <Stat
-                    label="Wiper Blades"
-                    titleClass={
-                        logs[0].wiper_blades ? "text-green-500" : "text-red-500"
-                    }
-                    value={logs[0].wiper_blades ? "Working" : "Not Working"}
-                ></Stat>
                 {/* Warning Lights */}
                 <Stat
                     label="Warning Lights"
@@ -416,9 +408,9 @@ function Stat({
 }) {
     return (
         <div
-            className={`stats  shadow-sm ${containerClass} border border-neutral-200`}
+            className={`stats shadow-sm ${containerClass} border border-neutral-200`}
         >
-            <div className="stat">
+            <div className="stat px-4 py-1 md:p-6">
                 <div className={`$ stat-title`}>{label}</div>
                 <div
                     className={`stat-value text-[1.3rem] md:text-[1.8rem] ${titleClass} `}
@@ -538,13 +530,7 @@ function Table({
                                 }
                             />
                             {/* #15 Description */}
-                            <td className="">
-                                Lorem ipsum dolor sit amet consectetur
-                                adipisicing elit. Voluptatem nostrum alias nam
-                                unde laudantium earum! Ut quo suscipit,
-                                laudantium molestias neque, hic dolore incidunt
-                                necess{log.description}
-                            </td>
+                            <td className="">{log.description}</td>
                             {/* #16 Button Actions */}
                             <td className="btn-group">
                                 <button

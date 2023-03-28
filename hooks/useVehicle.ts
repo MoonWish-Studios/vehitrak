@@ -66,9 +66,12 @@ export function ActionManager() {
                 .select("*")
                 .eq("id", userId);
 
+            if (error) {
+                throw Error("Unable to find user");
+            }
             return data;
         } catch (error: any) {
-            alert(error.message);
+            return [];
         }
     };
     const fetchVehicleByLicense = async (
