@@ -10,7 +10,7 @@ export default function Home() {
                     </h1>
                     <p className="mb-4 w-full xl:w-3/4 text-gray-600 text-[1.2rem] md:text-lg">
                         Vehitrak simplifies the fleet management process from
-                        maintenance tracking to real time updates from drivers.
+                        maintenance tracking to real time driver updates.
                     </p>
                     <div className="flex justify-center">
                         <Link href="/login" className="btn btn-primary">
@@ -37,10 +37,10 @@ export default function Home() {
             </div>
             <div className="max-w-7xl mx-auto flex lg:gap-20 px-5 lg:flex-row-reverse flex-col justify-center">
                 <div className="lg:flex-grow md:mr-0 pt-20 flex flex-col lg:items-start lg:text-left mb-20 items-center text-center">
-                    <h1 className="mb-5 font-semibold md:text-5xl items-center Avenir xl:w-2/2 text-gray-900">
+                    <h1 className="mb-5 font-semibold text-4xl md:text-5xl items-center Avenir xl:w-2/2 text-gray-900">
                         Everything In One Place
                     </h1>
-                    <p className="mb-4 xl:w-3/4 text-gray-600 text-lg">
+                    <p className="mb-4 w-3/4 text-gray-600 text-lg">
                         View all your vehicles' metrics, past maintenance logs,
                         and more all in one place!
                     </p>
@@ -62,7 +62,7 @@ export default function Home() {
             </div>
 
             <div className="flex flex-col items-center mb-12 max-w-7xl pt-20 mx-auto text-center">
-                <h1 className="mb-8 text-5xl font-semibold text-gray-900">
+                <h1 className="mb-8 text-4xl mx-2 md:text-5xl font-semibold text-gray-900">
                     We'd love to get your input!
                 </h1>
                 <h1 className="mb-8 text-xl w-10/12 Avenir  text-gray-600 text-center">
